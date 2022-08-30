@@ -22,15 +22,13 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			</when>
 			<when expression='vars.transportCompany == "travelOnTip"'>
 				<set-variable value="#[&quot;/api/&quot; ++ vars.transportType ++ p('http.requester.travelontip.path')]" doc:name="Set Variable" doc:id="8a06613e-cfa9-4c61-a7ec-9a2af6a2cbfc" variableName="resourcepath-travelontip"/>
-				<ee:cache doc:name="Cache" doc:id="c854966a-74fe-4405-8073-d1500540f8d0" cachingStrategy-ref="Caching_Strategy">
-					<http:request method="GET" doc:name="Request" doc:id="102e83a8-66df-4d70-b78f-3d23b980684a" config-ref="HTTP_Request_configuration-fastgo" path='#[vars."resourcePath-travelontip"]'>
+				<http:request method="GET" doc:name="Request" doc:id="102e83a8-66df-4d70-b78f-3d23b980684a" config-ref="HTTP_Request_configuration-fastgo" path='#[vars."resourcePath-travelontip"]'>
 					<http:headers><![CDATA[#[output application/java
 ---
 {
 	"transactionId" : vars.transactionId
 }]]]></http:headers>
 				</http:request>
-				</ee:cache>
 			</when>
 		</choice>
 	</sub-flow>
