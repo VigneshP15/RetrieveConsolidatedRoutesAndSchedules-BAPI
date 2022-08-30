@@ -1,0 +1,102 @@
+#%RAML 1.0
+title: RetrieveConsolidatedRoutesAndSchedules BAPI
+description: This will retrieve consolidated routes and schedules for Process Api
+
+uses:
+  common: /common/commonlibrary.raml
+
+types:
+  getRoutes200: !include /routes/dataTypes/200dataType.raml
+  getSchedules200: !include /schedules/dataTypes/getSchedules200.raml
+
+/booking:
+  /{transportType}:
+    /routes:
+      get:
+        is:
+          - common.transactionId
+        queryParameters:
+          companyName:
+            required: false
+            type: string
+            example: "Fastgo"
+          departureLocation:
+            required: false
+            type: string
+            example: "DEL-CHN"
+          destinationLocation:
+            required: false
+            type: string
+            example: "DEL-CHN"
+        responses:
+          200:
+            body:
+              application/json:
+                type: getRoutes200
+                example: !include /schedules/example/getSchedules200Response-example.json
+          400:
+            body:
+              application/json:
+                example:
+                  {
+                    message: "bad request"
+                  }
+          404:
+            body:
+              application/json:
+                example:
+                  {
+                    message: "not found"
+                  }
+          500:
+            body:
+              application/json:
+                example:
+                  {
+                    message: "server issue"  }
+    /schedules:      
+      get:
+        is:
+          - common.transactionId
+        queryParameters:
+          companyName:
+            required: false
+            type: string
+            example: "Fastgo"
+          departureLocation:
+            required: false
+            type: string
+            example: "DEL-CHN"
+          destinationLocation:
+            required: false
+            type: string
+            example: "DEL-CHN"
+        responses:
+          200:
+            body:
+              application/json:
+                type: getSchedules200
+                example: !include /routes/example/getRoutes200Response-examples.json
+                  
+          400:
+              body:
+                application/json:
+                  example:
+                    {
+                      message: "bad request"
+                    }
+          404:
+            body:
+              application/json:
+                example:
+                  {
+                    message: "not found"
+                  }
+          500:
+            body:
+              application/json:
+                example:
+                  {
+                    message: "server issue" } 
+    
+

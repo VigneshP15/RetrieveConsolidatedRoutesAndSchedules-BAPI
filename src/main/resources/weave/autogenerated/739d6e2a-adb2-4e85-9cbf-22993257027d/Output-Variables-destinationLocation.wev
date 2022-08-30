@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_739d6e2a_adb2_4e85_9cbf_22993257027d_Output_Variables_destinationLocation = Any
+
